@@ -1,19 +1,43 @@
-const socket = io('http://localhost:3010')
+const socket = io('http://192.168.0.158:3010')
 
 document.addEventListener("DOMContentLoaded", () => {
   const up = document.getElementById('up')
   const down = document.getElementById('down')
+  const register = document.getElementById('register')  
   const stats = document.getElementById('stats')
+  const nick = document.getElementById('nick')
+  const registremain = document.getElementById('registremain')
   var arrst = []
 
-  up.addEventListener('click', () => {
+  register.addEventListener('click', () => {
+    console.log('registrando')
+
+    if (nick.value !== '') {
+      socket.emit('register', {
+        nick: nick.value
+      })
+      registremain.innerHTML = ""
+    }
+  })
+
+  up.addEventListener('mousedown', () => {
     console.log('clicat up')
     socket.emit('up')
   })
   
-  down.addEventListener('click', () => {
+  up.addEventListener('mouseup', () => {
+    console.log('clicat stop')
+    socket.emit('stop')
+  })
+
+  down.addEventListener('mousedown', () => {
     console.log('clicat down')
     socket.emit('down')
+  })
+
+  down.addEventListener('mouseup', () => {
+    console.log('clicat stop')
+    socket.emit('stop')
   })
 
   socket.on('connect', () => {
@@ -25,6 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
   })
   
   socket.on('disconnect', () => {
-    console.log('Estic desconectat')
+    console.log(`${socket.id} Estic desconectat`)
   })
 })
