@@ -14,10 +14,7 @@ app.listen(conf.http_port, () => {
 })
 
 setInterval(() => {
-  console.log(`
-    ${JSON.stringify(users)}
-    ---------------------------
-  `)
+  console.log(`${JSON.stringify(users)}\n---------------------------`)
 }, 2000)
   
 io.on('connection', socket => {
@@ -39,44 +36,50 @@ io.on('connection', socket => {
   })
 
   socket.on('up', () => {
-    const us = users.filter(usr => usr.socket === socket.id)
-    console.log(`${us.nick} -> UP!`)        
-    io.to(mainboard).emit('up', {
-      socket: socket.id,
-      nick: us.nick
-    })
+    const us = users.filter(usr => usr.socket === socket.id)    
+    if (us[0] !== undefined) {
+      console.log(`${us[0].nick} -> UP!`)        
+      io.to(mainboard).emit('up', {
+        socket: socket.id,
+        nick: us.nick
+      })
+    } else console.log(`UP SOLICITAT USUARI NO REGISTRAT ${socket.id}`)
   })
 
   socket.on('down', () => {
     const us = users.filter(usr => usr.socket === socket.id)
-    console.log(`${us.nick} -> DOWN!`)    
-    io.to(mainboard).emit('down', {
-      socket: socket.id,
-      nick: us.nick
-    })
+    if (us[0] !== undefined) {
+      console.log(`${us[0].nick} -> DOWN!`)    
+      io.to(mainboard).emit('down', {
+        socket: socket.id,
+        nick: us.nick
+      })
+    } else console.log(`DOWN SOLICITAT USUARI NO REGISTRAT ${socket.id}`)
   })
 
   socket.on('stop', () => {
     const us = users.filter(usr => usr.socket === socket.id)
-    console.log(`${us.nick} -> STOP!`)        
-    io.to(mainboard).emit('stop', {
-      socket: socket.id,
-      nick: us.nick
-    }) 
+    if (us[0] !== undefined) {
+      console.log(`${us[0].nick} -> STOP!`)        
+      io.to(mainboard).emit('stop', {
+        socket: socket.id,
+        nick: us.nick
+      })
+    } else console.log(`STOP SOLICITAT USUARI NO REGISTRAT ${socket.id}`)
   })
 
   socket.on('disconnect', () => {
     console.log(`DESCONEXIO ${socket.id}`)
-    if (socket.io === mainboard) {
+    if (socket.id === mainboard) {
       console.log(`-> DESCONECTADO MAINBOARD`)
       mainboard = ''
       users = []
     } else {
       const us = users.filter(usr => usr.socket === socket.id)
-      if (us.nick === undefined) {
+      if (us[0] === undefined) {
         console.log(`${socket.id} -> DESCONECTADO USUARIO NO REGISTRADO!`)    
       } else { 
-        console.log(`${us.nick} -> DESCONECTADO USUARIO REGISTRADO!`)        
+        console.log(`${us[0].nick} -> DESCONECTADO USUARIO REGISTRADO!`)        
         users = users.filter(usr => usr.socket !== socket.id)
       }
     }
