@@ -29,8 +29,8 @@ io.on('connection', socket => {
       if (mainboard !== '') {
         users.push({ socket: socket.id, nick: data.nick })
       } else {
-        socket.emit('status', { ev : "NO HI HA PARTIDA" })
-        console.log("NO HI HA PARTIDA CABRO!")
+        socket.emit('mainboard', { msg: 'noserver' })
+        console.log(`${socket.id} -> NO HI HA PARTIDA!`)
       }
     }
   })
@@ -73,6 +73,9 @@ io.on('connection', socket => {
     if (socket.id === mainboard) {
       console.log(`-> DESCONECTADO MAINBOARD`)
       mainboard = ''
+      users.forEach(us => {
+        io.to(us.socket).emit('mainboard', { msg: 'down' })
+      })
       users = []
     } else {
       const us = users.filter(usr => usr.socket === socket.id)
