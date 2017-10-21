@@ -27,7 +27,9 @@ io.on('connection', socket => {
       //users[mainboard]
     } else if (data.nick !== undefined) {
       if (mainboard !== '') {
+        const id = users.length
         users.push({ socket: socket.id, nick: data.nick })
+        io.to(mainboard).emit('start', { id: id, nick: data.nick })
       } else {
         socket.emit('mainboard', { msg: 'noserver' })
         console.log(`${socket.id} -> NO HI HA PARTIDA!`)
@@ -40,8 +42,7 @@ io.on('connection', socket => {
     if (us[0] !== undefined) {
       console.log(`${us[0].nick} -> UP!`)        
       io.to(mainboard).emit('up', {
-        socket: socket.id,
-        nick: us.nick
+        id: users.indexOf(us[0])
       })
     } else console.log(`UP SOLICITAT USUARI NO REGISTRAT ${socket.id}`)
   })
@@ -51,8 +52,7 @@ io.on('connection', socket => {
     if (us[0] !== undefined) {
       console.log(`${us[0].nick} -> DOWN!`)    
       io.to(mainboard).emit('down', {
-        socket: socket.id,
-        nick: us.nick
+        id: users.indexOf(us[0])   
       })
     } else console.log(`DOWN SOLICITAT USUARI NO REGISTRAT ${socket.id}`)
   })
@@ -62,8 +62,7 @@ io.on('connection', socket => {
     if (us[0] !== undefined) {
       console.log(`${us[0].nick} -> STOP!`)        
       io.to(mainboard).emit('stop', {
-        socket: socket.id,
-        nick: us.nick
+        id: users.indexOf(us[0])       
       })
     } else console.log(`STOP SOLICITAT USUARI NO REGISTRAT ${socket.id}`)
   })
