@@ -1,5 +1,5 @@
 # pongtard-server
-Servidor del pong amb unity 3d creat amb Node.JS
+Servidor del joc de pong amb controlers remots. Creat amb unity 3d creat amb Node.JS
 
 ### Instalacio:
 ```sh
@@ -10,6 +10,11 @@ npm i
 ```sh
 node pongserve.js
 ```
+
+### Serveis disponibles:
+http 3000
+
+socket 3010
 
 ### Creadors:
 Simon Campos - Unity 3d - [https://github.com/Sym313](https://github.com/Sym313)
