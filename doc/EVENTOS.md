@@ -1,7 +1,10 @@
 ## Esdeveniments que pot rebre
 - up
+  - Vindra del pad.
 - down
+  - Vindra del pad.
 - stop
+  - Vindra del pad.
   - Els tres controls basics generalment els rebrà el "mainboard" i conte:
   ```js
   { id: 'integer' }
