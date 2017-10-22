@@ -1,0 +1,1 @@
+ssh -i "pongtard.pem" ec2-user@ec2-52-56-109-16.eu-west-2.compute.amazonaws.com
