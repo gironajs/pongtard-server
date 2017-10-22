@@ -20,7 +20,7 @@
 
 ## Eventos que envia
 - start
-  - El mainboard envia el misatje cuant te un usuari nou.  Conte el identificador i el nick del usuari.
+  - Quant un usuari s'ha registrat correctament el servidor envia al mainboard les següents dades:
 
   ```js
   { id: 'integer', nick: 'string' } 
