@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 /*global io*/
+=======
+>>>>>>> f8fe0ccd47b32a4113139a273b6d5da371540868
 const socket = io(`http://${window.location.hostname}:3010`)
 
 document.addEventListener("DOMContentLoaded", () => {
