@@ -1,4 +1,5 @@
-const socket = io('http://192.168.0.158:3010')
+/*global io*/
+const socket = io(`http://${window.location.hostname}:3010`)
 
 document.addEventListener("DOMContentLoaded", () => {
   const up = document.getElementById('up')

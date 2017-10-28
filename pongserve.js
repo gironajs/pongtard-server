@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const conf = require('./conf')
 var users = []
-mainboard = ''
+var mainboard = ''
 
 io.attach(conf.socket_port)
 

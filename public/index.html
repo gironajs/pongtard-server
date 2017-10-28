@@ -4,31 +4,37 @@
    <script src="index.js"></script>
    <title></title>
    <style>
+       #botons {
+           visibility: hidden;
+       }
+
        .boton {
            height: 40;
            width: 40;
        }
 
        #up {
-        background-color: red;
+            background-color: red;
        }
 
        #down {
-        background-color: blue;
+            background-color: blue;
        }
 
        #register {
-        background-color: gold;
+            background-color: gold;
        }
    </style>
   </head>
   <body>
-    <div id="up" class="boton"></div>
-    <div id="down" class="boton"></div>
-    <div id="stats"></div>
+    <div id="botons">
+        <div id="up" class="boton"></div>
+        <div id="down" class="boton"></div>
+    </div>
     <div id="registremain">
         <input id="nick" type="text">
         <div id="register" class="boton">REG</div>
     </div>
+    <div id="stats"></div>    
   </body>
 </html>
